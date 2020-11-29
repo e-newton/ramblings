@@ -1,9 +1,15 @@
 import React from 'react'
 import Header from './Header'
+import Head from "next/head";
 
 const App = ({ children }) => (
   <main>
-    <Header />
+      <Head>
+          <title>Eric Newton - Ramblings</title>
+          <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css"/>
+          <link rel="stylesheet" href="/styles.css"/>
+      </Head>
+      <Header/>
     {children}
   </main>
 )
