@@ -7,7 +7,6 @@ export default (req, res) => {
         .then((blogs) => {
             var rv = [];
             blogs.forEach(blog => {
-                console.log('api blog', blog.id)
                 let b = {
 
                     title: blog.data().title,

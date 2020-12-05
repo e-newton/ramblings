@@ -14,10 +14,6 @@ const fetcher = async (...args) => {
 export default function Home() {
 
     const { data } = useSWR(`/api/blog/all`, fetcher);
-    if(data) {
-        console.log("data", data)
-    }
-
 
     return (
         <App>
