@@ -7,7 +7,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Navbar from "react-bootstrap/Navbar";
 
 const Header = ({router}) => {
-    console.log(router.pathname)
     return (
 
         <Navbar bg="primary" expand="lg" className={'navbar-dark'}>

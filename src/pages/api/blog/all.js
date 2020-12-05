@@ -8,7 +8,6 @@ export default (req, res) => {
             var rv = [];
             blogs.forEach(blog => {
                 let b = {
-
                     title: blog.data().title,
                     date: blog.data().date,
                     body: blog.data().body,
