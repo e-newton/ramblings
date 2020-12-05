@@ -2,8 +2,23 @@ import App from '../components/App'
 import Head from "next/head";
 import React from 'react';
 import Image from 'next/image'
+import BlogTile from "../components/Blog-Tile";
+import useSWR from "swr";
+import Loading from "../components/Loading";
+
+const fetcher = async (...args) => {
+    const res = await fetch(...args);
+    return res.json();
+};
 
 export default function Home() {
+
+    const { data } = useSWR(`/api/blog/all`, fetcher);
+    if(data) {
+        console.log("data", data)
+    }
+
+
     return (
         <App>
             <div className={'container-xl'}>
@@ -18,47 +33,14 @@ export default function Home() {
                         <h5>Recent Blogs</h5>
                     </div>
                 </div>
-                <div className={'row no-gutters row-cols-2 row-cols-md-4'}>
-                    <div className="col">
-                        <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
-                            <div className="col align-items-center">
-                                <h6>This is the blog title</h6>
-                                <code>29/11/2020</code>
-                            </div>
+                { !data &&
+                <Loading/>}
+                { data &&
+                    <div className={'row no-gutters row-cols-2 row-cols-md-4'}>
+                        {data.map(blog => <BlogTile key= {blog.title+"_"+blog.date} title = {blog.title} date = {blog.date} id = {blog.id}/>)}
+                    </div>
+                }
 
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
-                            <div className="col align-items-center">
-                                <h6>This is the blog title</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
-                            <div className="col align-items-center">
-                                <h6>This is the blog title</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
-                            <div className="col align-items-center">
-                                <h6>This is the blog title</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
-                            <div className="col align-items-center">
-                                <h6>This is the blog title</h6>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
             </div>
         </App>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import App from "../../components/App";
+import Loading from "../../components/Loading";
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);
@@ -16,17 +17,7 @@ function URL() {
 
     if (!data) {
         return (<App>
-            <div className={"container-xl h-100"}>
-                <div style={{height:'25vh'}}></div>
-                <div className={'row justify-content-center'}>
-                    <div className={'col d-flex justify-content-center'}>
-                        <div className="spinner-border text-primary m-5 p-5" role="status" style={{width:'40vmin', height:'40vmin'}}>
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <Loading/>
         </App>)
 
     }

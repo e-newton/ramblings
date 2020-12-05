@@ -1,15 +1,23 @@
 import React from 'react';
+import Link from "next/link";
 
-function BlogTile() {
+
+function BlogTile(props) {
+    let date = new Date(props.date._seconds*1000)
     return (
-        <div className="card text-white bg-primary mb-3" style="max-width: 20rem;">
-            <div className="card-header">Header</div>
-            <div className="card-body">
-                <h4 className="card-title">Primary card title</h4>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-            </div>
-        </div>
+            <Link href = {"./blog/"+props.id}>
+                <a>
+                    <div className="col">
+                        <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
+                            <div className="col align-items-center">
+                                <h6>{props.title}</h6>
+                                <h6>{props.id}</h6>
+                                <code>{date.getDate()}/{date.getMonth()}/{date.getFullYear()}</code>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </Link>
     );
 }
 
