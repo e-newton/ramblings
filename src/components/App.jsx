@@ -7,7 +7,7 @@ const App = ({ children }) => (
       <Head>
           <title>Eric Newton - Ramblings</title>
           <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css"/>
-          <link rel="stylesheet" href="/styles.css"/>
+          <link rel="stylesheet" href="../public/styles.css"/>
       </Head>
       <Header/>
     {children}
