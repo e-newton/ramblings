@@ -12,7 +12,6 @@ function BlogTile(props) {
                         <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
                             <div className="col align-items-center">
                                 <h6>{props.title}</h6>
-                                <h6>{props.id}</h6>
                                 <code>{date.getDate()}/{date.getMonth()}/{date.getFullYear()}</code>
                             </div>
                         </div>
