@@ -3,7 +3,8 @@ import Link from "next/link";
 
 
 function BlogTile(props) {
-    let date = new Date(props.date._seconds*1000)
+    let date = new Date(props.date.seconds*1000)
+    console.log('date', date)
     return (
             <Link href = {"./blog/"+props.id}>
                 <a>

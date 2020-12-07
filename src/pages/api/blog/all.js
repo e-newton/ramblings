@@ -1,7 +1,7 @@
-import firebase from '../../../lib/firebase';
+import {firestore} from '../../../lib/firebase';
 
 export default (req, res) => {
-    firebase
+    firestore
         .collection('blogs')
         .get()
         .then((blogs) => {
