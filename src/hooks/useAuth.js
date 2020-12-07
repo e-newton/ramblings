@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import {auth} from '../lib/firebase'
+import {auth, firestore} from '../lib/firebase'
 import firebase from "firebase";
 
 const authContext = createContext({user: {}});
@@ -25,10 +25,16 @@ function useProvideAuth() {
             .auth()
             .signInWithPopup(new firebase.auth.GoogleAuthProvider())
             .then(async (response) => {
-                await setUser(response.user)
-                console.log('raw repsonse', response.user)
-                console.log('auth hook user repsonse', user)
-                return response.user
+                let resUser = await firestore.collection('users').doc(response.user.uid).get()
+                if (resUser.exists){
+                    console.log('should only login here?')
+                    await setUser(response.user)
+                    return response.user
+                } else{
+                    setUser(false)
+                    return false
+                }
+
             });
     };
 
@@ -39,8 +45,17 @@ function useProvideAuth() {
             .then(() => setUser(false));
     };
 
-    const handleAuthStateChanged = (user) => {
-        setUser(user);
+    const handleAuthStateChanged = async(user) => {
+        if(user){
+            let resUser = await firestore.collection('users').doc(user.uid).get()
+            if(resUser.exists){
+                setUser(user);
+            }
+        }
+        else{
+            setUser(false)
+        }
+
     }
 
     useEffect(() => {
