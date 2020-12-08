@@ -8,7 +8,7 @@ function BlogTile(props) {
     return (
             <Link href = {"./blog/"+props.id}>
                 <a>
-                    <div className="col">
+                    <div className="col pb-4">
                         <div className="row square bg-primary m-1 text-center d-flex align-items-center justify-content-center">
                             <div className="col align-items-center">
                                 <h6>{props.title}</h6>

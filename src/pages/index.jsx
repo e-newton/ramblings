@@ -1,10 +1,12 @@
 import App from '../components/App'
 import Head from "next/head";
-import React from 'react';
+import React, {useEffect} from 'react';
 import Image from 'next/image'
 import BlogTile from "../components/Blog-Tile";
 import useSWR from "swr";
 import Loading from "../components/Loading";
+import '../lib/firebase'
+import firebase from "firebase";
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);
@@ -12,10 +14,10 @@ const fetcher = async (...args) => {
 };
 
 export default function Home() {
-
     const { data } = useSWR(`/api/blog/all`, fetcher);
-    console.log('data', data)
-
+    useEffect(() => {
+        firebase.analytics().logEvent('page_view', {page_title: 'Home Page'})
+    }, [])
     return (
         <App>
             <div className={'container-xl'}>
@@ -34,7 +36,7 @@ export default function Home() {
                 <Loading/>}
                 { data &&
                     <div className={'row no-gutters  row-cols-1 row-cols-sm-2 row-cols-md-4'}>
-                        {data.slice(0, 4).map(blog => <BlogTile key= {blog.title+"_"+blog.date} title = {blog.title} date = {blog.date} id = {blog.id}/>)}
+                        {data.slice(0, 8).map(blog => <BlogTile key= {blog.title+"_"+blog.date} title = {blog.title} date = {blog.date} id = {blog.id}/>)}
                     </div>
                 }
 
