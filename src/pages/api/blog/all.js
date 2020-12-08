@@ -3,6 +3,7 @@ import {firestore} from '../../../lib/firebase';
 export default (req, res) => {
     firestore
         .collection('blogs')
+        .orderBy('date', 'desc')
         .get()
         .then((blogs) => {
             var rv = [];
