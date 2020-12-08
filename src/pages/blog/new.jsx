@@ -2,12 +2,16 @@ import React, {useState} from 'react';
 import App from "../../components/App";
 import {Editor} from "@tinymce/tinymce-react";
 import {firestore} from "../../lib/firebase";
+import {useRouter} from 'next/router'
+import {useAuth} from "../../hooks/useAuth";
 
 function NewBlog() {
-
+    const router = useRouter();
     const [state, setState] = useState({url: '', content: ''})
+    const auth = useAuth();
 
-    const postBlog = async() => {
+
+    const postBlog = () => {
         let url = document.getElementById('urlinput').value
         let title = document.getElementById('blogTitleInput').value.toString().trim()
         console.log('what we are posting', {
@@ -15,10 +19,12 @@ function NewBlog() {
                 date: new Date(),
                 title: title
             })
-        await firestore.collection('blogs').doc(url).set({
+        firestore.collection('blogs').doc(url).set({
             body: state.content,
             date: new Date(),
             title: title
+        }).then(() => {
+            router.push(`/blog/${url}`)
         })
 
     }
@@ -43,7 +49,7 @@ function NewBlog() {
 
     }
 
-    return (
+    return auth.user && (
             <App>
                 <div className={"container-fluid"}>
                     <form>
