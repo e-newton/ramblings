@@ -34,7 +34,7 @@ export default function Home() {
                 <Loading/>}
                 { data &&
                     <div className={'row no-gutters  row-cols-1 row-cols-sm-2 row-cols-md-4'}>
-                        {data.map(blog => <BlogTile key= {blog.title+"_"+blog.date} title = {blog.title} date = {blog.date} id = {blog.id}/>)}
+                        {data.slice(0, 4).map(blog => <BlogTile key= {blog.title+"_"+blog.date} title = {blog.title} date = {blog.date} id = {blog.id}/>)}
                     </div>
                 }
 

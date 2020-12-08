@@ -13,6 +13,7 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^3.8.2",
     "firebase": "^8.1.1",
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.11.0",
