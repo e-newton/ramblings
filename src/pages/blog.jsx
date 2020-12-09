@@ -5,6 +5,8 @@ import BlogTile from "../components/Blog-Tile";
 import React, {useEffect} from "react";
 import '../lib/firebase'
 import firebase from "firebase";
+import {useAuth} from "../hooks/useAuth";
+import {useRouter} from "next/router";
 
 
 const fetcher = async (...args) => {
@@ -13,14 +15,27 @@ const fetcher = async (...args) => {
 };
 export default function Blog() {
     const { data } = useSWR(`/api/blog/all`, fetcher);
+    const auth = useAuth()
+    const router = useRouter()
 
     useEffect(() => {
         firebase.analytics().logEvent('page_view', {page_title: 'Blog Page'})
     }, [])
 
+    const newBlog = async() => {
+        await router.push('blog/new')
+    }
+
     return (
         <App>
             <div className={'container-xl'}>
+                { auth.user &&
+                <div className={'row justify-content-center'}>
+                    <div className={'col-2 text-center'}>
+                        <button className={'btn btn-secondary w-100'} onClick={newBlog}>Create New Blog</button>
+                    </div>
+                </div>
+                }
                 <div className={'row justify-content-center mb-3'}>
                     <div className={'col text-center mt-5 pt-5'}>
                         <h1>Blog</h1>
