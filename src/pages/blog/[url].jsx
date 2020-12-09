@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import App from "../../components/App";
 import Loading from "../../components/Loading";
+import {analytics} from "../../lib/firebase";
+import firebase from "firebase";
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);
@@ -13,6 +15,10 @@ function URL() {
     const router = useRouter();
     const { url } = router.query;
     const { data } = useSWR(`/api/blog/${url}`, fetcher);
+
+    useEffect(() => {
+        firebase.analytics().logEvent('page_view', {page_title: `${url}`})
+    }, [])
 
 
     if (!data) {
