@@ -20,7 +20,7 @@ export default function About() {
                     <div className={'col-5 rounded d-flex justify-content-center'}>
                         {/*Some picture of my ugly mug*/}
                         <Image className={'rounded border-primary'}
-                               src = "/35672855.jpeg"
+                               src = "/IMG_1152.JPG"
                                alt="Picture of the author"
                                width={'300vmax'}
                                height={'300vmax'}/>

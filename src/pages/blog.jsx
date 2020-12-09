@@ -21,7 +21,7 @@ export default function Blog() {
     return (
         <App>
             <div className={'container-xl'}>
-                <div className={'row justify-content-center'}>
+                <div className={'row justify-content-center mb-3'}>
                     <div className={'col text-center mt-5 pt-5'}>
                         <h1>Blog</h1>
                     </div>
