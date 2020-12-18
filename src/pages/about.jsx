@@ -17,13 +17,14 @@ export default function About() {
                     </div>
                 </div>
                 <div className={'row justify-content-center'}>
-                    <div className={'col-5 rounded d-flex justify-content-center'}>
+                    <div className={'col-8 col-md-5 rounded d-flex justify-content-center'}>
                         {/*Some picture of my ugly mug*/}
-                        <Image className={'rounded border-primary'}
-                               src = "/IMG_1152.JPG"
-                               alt="Picture of the author"
-                               width={'300vmax'}
-                               height={'300vmax'}/>
+                        {/*<Image className={'rounded border-primary'}*/}
+                        {/*       src = "/pic.jpg"*/}
+                        {/*       alt="Picture of the author"*/}
+                        {/*       width={'300vmax'}*/}
+                        {/*       height={'300vmax'}/>*/}
+                        <img src = "/pic.jpg" alt = "hopefully working" style = {{height: 'auto', width: '100%'}}/>
 
 
                     </div>

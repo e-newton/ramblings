@@ -127,11 +127,12 @@ function URL() {
                         plugins: [
                             'advlist autolink lists link image charmap print preview anchor',
                             'searchreplace visualblocks code fullscreen',
-                            'insertdatetime media table paste code help wordcount'
+                            'insertdatetime media table paste code help wordcount',
+                            'table'
                         ],
                         toolbar: 'undo redo | formatselect | bold italic backcolor | \
                                 alignleft aligncenter alignright alignjustify code image | \
-                                bullist numlist outdent indent | removeformat | fullscreen help'
+                                bullist numlist outdent indent table | removeformat | fullscreen help'
                     }}
                     onEditorChange = {handleEditorChange}
                     value={state.content}
