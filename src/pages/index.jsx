@@ -7,14 +7,14 @@ import useSWR from "swr";
 import Loading from "../components/Loading";
 import '../lib/firebase'
 import firebase from "firebase";
+import absoluteUrl from "next-absolute-url/index";
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);
     return res.json();
 };
 
-export default function Home() {
-    const { data } = useSWR(`/api/blog/all`, fetcher);
+export default function Home({data}) {
     useEffect(() => {
         firebase.analytics().logEvent('page_view', {page_title: 'Home Page'})
     }, [])
@@ -44,4 +44,12 @@ export default function Home() {
         </App>
 
     )
+}
+export async function getServerSideProps({req}) {
+    const {origin} = absoluteUrl(req, req.headers.host)
+    let data = await fetch(`${origin}/api/blog/all`);
+    data = await data.json();
+    return {
+        props: {data}
+    }
 }
