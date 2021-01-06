@@ -34,7 +34,7 @@ export default function Home({data}) {
                 </div>
                 { !data &&
                 <Loading/>}
-                { data &&
+                { !!data &&
                     <div className={'row no-gutters  row-cols-1 row-cols-sm-2 row-cols-md-4'}>
                         {data.slice(0, 8).map(blog => <BlogTile key= {blog.title+"_"+blog.date} title = {blog.title} date = {blog.date} id = {blog.id}/>)}
                     </div>
@@ -45,11 +45,11 @@ export default function Home({data}) {
 
     )
 }
-export async function getServerSideProps({req}) {
-    const {origin} = absoluteUrl(req, req.headers.host)
-    let data = await fetch(`${origin}/api/blog/all`);
+export async function getStaticProps() {
+    let data = await fetch(`https://ramblings.ericnewton.ca/api/blog/all`);
     data = await data.json();
     return {
-        props: {data}
+        props: {data},
+        revalidate: 300
     }
 }

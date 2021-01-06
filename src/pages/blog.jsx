@@ -13,8 +13,7 @@ const fetcher = async (...args) => {
     const res = await fetch(...args);
     return res.json();
 };
-export default function Blog() {
-    const { data } = useSWR(`/api/blog/all`, fetcher);
+export default function Blog({data}) {
     const auth = useAuth()
     const router = useRouter()
 
@@ -52,4 +51,13 @@ export default function Blog() {
             </div>
         </App>
     )
+}
+export async function getStaticProps(context) {
+    console.log('context', context);
+    let data = await fetch(`https://ramblings.ericnewton.ca/api/blog/all`);
+    data = await data.json();
+    return {
+        props: {data},
+        revalidate: 300
+    }
 }

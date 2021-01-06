@@ -12,10 +12,9 @@ const fetcher = async (...args) => {
     return res.json();
 };
 
-function URL() {
+function URL({data}) {
     const router = useRouter();
     const { url } = router.query;
-    const { data } = useSWR(`/api/blog/${url}`, fetcher);
     const auth = useAuth();
 
     useEffect(() => {
@@ -69,6 +68,32 @@ function URL() {
             </div>
         </App>
     );
+}
+export async function getStaticPaths() {
+    let blogs = await fetch(`https://ramblings.ericnewton.ca/api/blog/all`);
+    blogs = await blogs.json()
+    const ids = []
+    blogs.forEach(blog => {
+        ids.push(blog.id)
+    })
+    console.log('blogs', blogs);
+    const paths = []
+    ids.forEach(id => {
+        paths.push({params: {url: id}})
+    })
+    return {
+        paths: paths,
+        fallback: false
+    }
+}
+export async function getStaticProps(context) {
+    console.log('context', context);
+    let data = await fetch(`https://ramblings.ericnewton.ca/api/blog/${context.params.url}`);
+    data = await data.json();
+    return {
+        props: {data},
+        revalidate: 300
+    }
 }
 
 export default URL;
